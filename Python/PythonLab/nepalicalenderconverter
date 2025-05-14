@@ -1,0 +1,37 @@
+from nepali_datetime import datetime  # Use the correct class name
+from datetime import date
+import sqlite3
+
+# Input Nepali date (e.g., "2080-02-15")
+nepali_date_str = input("Enter Nepali date (YYYY-MM-DD): ")
+
+try:
+    # Parse the Nepali date
+    nepali_date = datetime.strptime(nepali_date_str, "%Y-%m-%d")
+    
+    # Convert to Gregorian date (FIXED LINE)
+    english_date = nepali_date.to_datetime_date()  # Use to_datetime_date()
+    print(f"Converted English date: {english_date}")
+
+except ValueError:
+    print("Invalid date format! Use YYYY-MM-DD.")
+    exit()
+
+# Save to the database (SQLite example)
+conn = sqlite3.connect("events.db")
+cursor = conn.cursor()
+
+# Create table if not exists
+cursor.execute('''
+    CREATE TABLE IF NOT EXISTS events (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        event_date DATE
+    )
+''')
+
+# Insert the date
+cursor.execute("INSERT INTO events (event_date) VALUES (?)", (english_date,))
+conn.commit()
+conn.close()
+
+print("Date saved successfully!")
