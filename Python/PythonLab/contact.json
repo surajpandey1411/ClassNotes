@@ -1,0 +1,26 @@
+import json
+
+CONTACTS_FILE = 'contacts.json'
+
+def load_contacts():
+    """Load contacts from the JSON file."""
+    try:
+        with open(CONTACTS_FILE, 'r') as file:
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+def save_contacts(contacts):
+    """Save contacts to the JSON file."""
+    with open(CONTACTS_FILE, 'w') as file:
+        json.dump(contacts, file, indent=4)
+
+def add_contact():
+    """Add a new contact."""
+    contacts = load_contacts()
+    name = input("Enter contact name: ")
+    phone = input("Enter phone number: ")
+    email = input("Enter email address: ")
+    contacts.append({'name': name, 'phone': phone, 'email': email})
+    save_contacts(contacts)
+    print(f"Contact '{name}' added.")
