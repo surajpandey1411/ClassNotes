@@ -1,0 +1,5 @@
+print("What is your name:",end='')
+name=input()
+print('What is your DOB:',end='')
+yob=input()
+print("Hello" + name,+"your dob is"+yob)

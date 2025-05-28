@@ -1,0 +1,7 @@
+name=input("What is your name?")
+dob=input("Waht is your dob?")
+address=input("Your address is:")
+print("")
+print("Hello" + name)
+print("Your dob is" +dob)
+print("Your address is"+ address)
